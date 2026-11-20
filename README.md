@@ -116,4 +116,4 @@ html-ppt-yufei/
 
 ## License
 
-未附带许可证。发布到 GitHub 前请自行选择（如 MIT）。
+MIT © 2026 Yufei616. See [LICENSE](LICENSE).
