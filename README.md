@@ -1,8 +1,8 @@
 # HTML PPT Yufei — Presentation First
 
-把 **PPT 页面、PPT 模板、大纲、笔记或零散内容**做成 16:9 的 HTML 演示文稿。
+把 **PPT 模板、大纲、笔记、截图或零散内容**做成 16:9 的 HTML 演示文稿。
 
-重点在「呈现」：叙事结构、主题气质、版式节奏和演示交互，而不是把 PPT 数据转换成网页。输入可以是一份 PPT 的某几页、一套模板、一段大纲，甚至只是一个主题。
+重点在「呈现」：叙事结构、主题气质、版式节奏和演示交互。输入可以是一套模板、一段大纲、一份笔记，甚至只是一个主题。
 
 - 单页显示，16:9 等比缩放
 - 单击 / 滚轮 / 键盘 / 触屏翻页
@@ -32,7 +32,7 @@ git clone https://github.com/Yufei616/html-ppt-yufei.git ~/.config/opencode/skil
 
 > 用 html-ppt-yufei 按这套 PPT 模板做一份产品发布演示，保留模板的主题色和字体。
 
-> 用 html-ppt-yufei 把这份 PPT 的第 12–17 页重做成网页版演示，内容保留，版式重新设计。
+> 用 html-ppt-yufei 按这份产品笔记做 6 页演示，偏深色技术风。
 
 Skill 会先确认输入类型和主题来源，再规划叙事与页面节奏，最后基于 `assets/deck-template.html` 生成单文件 HTML。
 
@@ -75,24 +75,10 @@ open assets/deck-template.html
 
 | 输入 | 内容来源 | 主题来源 |
 | --- | --- | --- |
-| PPT 指定页面 | 提取文本 | 从主题 / 页面提取 |
 | PPT 模板 / 品牌 | 按模板写内容 | 沿用模板 |
 | 大纲 / 笔记 / Markdown | 先结构化为逐页大纲 | 推荐 2–3 套配色，或使用品牌色 |
-| 截图 / 现有网页 / PDF | 重建内容 | 提取或推荐 |
+| 截图 / 现有网页 / PDF | 重建内容 | 参考提炼或推荐 |
 | 只有一个主题 | 先起草大纲 | 推荐 |
-
-## 提取 PPT 内容（可选）
-
-只有输入是 PPTX、且需要提取文本时才用：
-
-```bash
-pip install python-pptx
-python scripts/extract_pptx.py your-deck.pptx --pages 12-17 --out content.md
-```
-
-支持 `12-17`、`12,14,16`、`all`，可选 `--include-notes`。
-
-脚本按 top/left 顺序读取形状，输出标题与正文，并对重复文本去重。表格会转成 Markdown 表格。
 
 ## 目录
 
@@ -104,19 +90,16 @@ html-ppt-yufei/
 │   ├── design-system.md        # 主题来源、字号、版式配方
 │   ├── presentation-craft.md   # 叙事、节奏、页面角色
 │   └── viewer-spec.md          # 交互、缩略图、总览、打印、性能
-├── scripts/extract_pptx.py     # 可选：PPTX → Markdown
-├── examples/demo-content.md    # 示例：从 PPT 提取的内容
-└── docs/requirements.md        # 原始需求记录
 ```
 
 ## 设计原则
 
-- **输入不限，呈现优先**：PPT、模板、大纲、笔记都可以是起点
-- 主题来源优先级：模板 / 品牌 > 源 PPT > 默认方案
+- **输入不限，呈现优先**：PPT 模板、大纲、笔记、截图都可以是起点
+- 主题来源优先级：模板 / 品牌 > 视觉参考 > 默认方案
 - 先定叙事，再定版式；每页一个 takeaway
 - 每页一个视觉重心，整份 deck 至少 4 种不同版式
 - 深色整版页用来调节节奏，不超过约 1/3
-- 提取内容不改事实；自拟数据标注 `UI Preview · 示意界面`
+- 内容不改事实；自拟数据标注 `UI Preview · 示意界面`
 - 单文件、离线、系统字体
 
 详细规范见 `references/design-system.md`、`references/presentation-craft.md` 和 `references/viewer-spec.md`。

@@ -4,29 +4,11 @@
 
 Choose one, in this order:
 
-1. **Brand / PPT template provided** — extract and reuse its tokens. Do not substitute your own palette.
-2. **Source deck has a strong identity** — extract from the theme and frequently used slide colors.
+1. **Brand / PPT template provided** — reuse its colors and type identity. Do not substitute your own palette.
+2. **A visual reference is provided** — sample the palette and type from the reference; ask for exact brand hex values when fidelity matters.
 3. **Outline / notes / topic only** — propose a restrained palette (below) and pick one; don't interrogate the user.
 
-### Extract from a PPTX
-
-Read colors from the package, not from a screenshot.
-
-```python
-import re, zipfile, collections
-
-with zipfile.ZipFile("deck.pptx") as z:
-    theme = z.read("ppt/theme/theme1.xml").decode("utf-8")
-    slide = z.read("ppt/slides/slide12.xml").decode("utf-8")
-
-print(re.findall(r'srgbClr val="([0-9A-Fa-f]{6})"', theme)[:12])
-print(collections.Counter(re.findall(r'srgbClr val="([0-9A-Fa-f]{6})"', slide)))
-print(re.findall(r'<p:bg>.*?</p:bg>', slide, re.S)[:1])
-```
-
-- The **most frequent dark value** is usually body text; the **most frequent light value** is background.
-- One saturated color appearing on rules, numerals, and labels is the accent — keep it.
-- Record dark-page colors separately (background, 4–5 node accents).
+When a brand kit exists, ask for its hex tokens once and record them at the top of the deck. Do not eyeball colors from a compressed screenshot.
 
 ### No theme? Pick a default
 
@@ -55,7 +37,7 @@ Use one accent plus neutrals. Do not mix warm and cool accents.
 }
 ```
 
-Never introduce a second accent hue. If no brand or source accent exists, derive one from the default palette above.
+Never introduce a second accent hue. If no brand accent exists, use the accent from the default palette above.
 
 ## 3. Type scale (1280×720)
 

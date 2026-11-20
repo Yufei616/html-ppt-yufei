@@ -1,11 +1,11 @@
 ---
 name: html-ppt-yufei
-description: Use when building a 16:9 HTML presentation from any source — selected PPT/PPTX pages, a PPT template or brand kit, an outline, notes, screenshots, or pasted content. The focus is presentation craft — narrative, theme, layout rhythm, and a self-contained viewer with thumbnail rail, overview, presenter mode, and PDF export — not PPT data conversion. Triggers include "HTML PPT", "网页版 PPT", "HTML 幻灯片", "PPT 模板", "大纲做成 PPT", "outline to slides", "重新设计版式", "缩略图侧栏", "演讲者模式".
+description: Use when building a 16:9 HTML presentation from a PPT template or brand kit, an outline, notes, screenshots, or pasted content. The focus is presentation craft — narrative, theme, layout rhythm, and a self-contained viewer with thumbnail rail, overview, presenter mode, and PDF export. Triggers include "HTML PPT", "网页版 PPT", "HTML 幻灯片", "PPT 模板", "大纲做成 PPT", "outline to slides", "重新设计版式", "缩略图侧栏", "演讲者模式".
 ---
 
 # HTML PPT — Presentation First
 
-Build the **presentation**, not a PPT converter. The output is always a single-file 16:9 HTML deck with a polished viewer; the input may be a PPT, a template, an outline, notes, or raw content. Extraction is an optional helper, never the center of the work.
+Build the **presentation**, not a file converter. The output is always a single-file 16:9 HTML deck with a polished viewer. Content comes from the user — a template, an outline, notes, screenshots, or pasted copy — and the work is narrative, theme, layout, and interaction.
 
 The viewer shell in `assets/deck-template.html` is part of the deliverable — never regress its navigation, thumbnail rail, overview, presenter mode, or print behavior.
 
@@ -13,35 +13,31 @@ The viewer shell in `assets/deck-template.html` is part of the deliverable — n
 
 | Input | Content | Theme |
 | --- | --- | --- |
-| PPTX, whole deck or selected pages | Extract text with `scripts/extract_pptx.py`; confirm the Markdown | Extract colors/fonts from theme + slides |
-| PPT template / brand kit | Author content to fit the template's story | Extract the template's theme; keep its identity |
-| Outline / notes / Markdown | Structure into a narrative first; confirm the outline | Propose 2–3 palettes, or use the user's brand |
-| Screenshots / existing HTML / PDF | Reconstruct the content; do not copy the layout | Derive from the source or propose |
+| PPT template / brand kit | Author content to fit the template's story | Keep the template's colors, type, and identity |
+| Outline / notes / Markdown | Structure into a narrative first; confirm the outline | Use the brand if given, otherwise propose 2–3 palettes |
+| Screenshots / existing HTML / PDF | Reconstruct the content; do not copy the layout | Derive from the reference or propose |
+| Pasted copy / raw content | Edit into slide-sized messages | Propose or use the brand |
 | Just a topic | Draft an outline, confirm, then build | Propose |
 
-Ask only for what is missing. Do not block on a PPTX when the user already gave an outline.
+Ask only for what is missing. Never wait for a file when the user already supplied the content.
 
 ## Workflow
 
-1. **Clarify the frame.** Content source, audience, page count, language, and whether a theme/brand exists. If the user already supplied these, proceed without re-asking.
-2. **Get the content.**
-   - PPTX: `python scripts/extract_pptx.py deck.pptx --pages 12-17 --out content.md`, then confirm titles, body copy, quotes, footers, and page numbers.
-   - Outline/notes: turn it into a slide-by-slide outline (title + one key message per page) and confirm it.
-   - Vague idea: draft the narrative structure first; do not jump into layout.
+1. **Clarify the frame.** Content source, audience, page count, language, and whether a theme/brand exists. If already supplied, proceed without re-asking.
+2. **Shape the content.** Turn an outline or notes into a slide-by-slide plan: one title + one key message per page. Confirm the plan before designing.
 3. **Decide the theme source.**
-   - Template/brand provided: extract and reuse it.
-   - Source deck has a strong identity: reuse its tokens.
-   - No theme: propose a restrained palette and type pairing; pick one default rather than asking a dozen questions.
-4. **Plan the rhythm.** Assign a different composition to each page before writing HTML. Use the layout recipes below; never mirror the source deck's grids.
+   - Template/brand provided: use it, including its type identity.
+   - No theme: choose a restrained palette and type pairing. Pick a tasteful default rather than asking a dozen questions.
+4. **Plan the rhythm.** Assign a different composition to each page before writing HTML. Use the layout recipes below; never mirror a reference deck's grids.
 5. **Build.** Copy `assets/deck-template.html`, replace the `<section class="slide">` bodies, keep the viewer CSS + script intact. Update `data-page` and footer numbers when the count changes; the counter adapts automatically. Thumbnails are generated from the DOM — no screenshots.
 6. **Verify.** Walk the checklist in `references/viewer-spec.md`: single-page display, click/wheel/keyboard/touch, rail hover preview, overview, fullscreen, print PDF, no overflow.
-7. **Deliver.** Give the HTML path, page count, and controls. Deliver the title+content Markdown when content was extracted or outlined.
+7. **Deliver.** Give the HTML path, page count, and controls. If content was authored from an outline, deliver the slide-by-slide outline alongside.
 
 ## Presentation craft
 
-The deck is judged on how it presents, not on how faithfully it reproduces a source file.
+The deck is judged on how it presents, not on how much content it carries.
 
-- One idea per page; the title should state the takeaway, not a category.
+- One idea per page; the title states the takeaway, not a category.
 - Build a narrative arc: context → tension → solution → proof → next step. See `references/presentation-craft.md`.
 - Vary density: a hero statement, a diagram, a comparison, a data page, a quiet quote.
 - Vary composition: at least 4 layout types in a 6–10 page deck.
@@ -54,12 +50,12 @@ The deck is judged on how it presents, not on how faithfully it reproduces a sou
 
 - 16:9, **one slide per HTML page**, 1280×720 base, scaled to fit the window.
 - Single HTML file, offline, system font stack, no CDN.
-- If content was extracted: preserve facts, numbers, quotes, and attribution.
-- If content was authored from an outline: you may write connective copy, but mark any invented example metrics as `示意` / `UI Preview`.
-- If a template/brand is provided: keep its colors and type identity.
-- **Never mirror the source layout.** The source's 2×2 cards / three columns are not a design.
+- Preserve the user's facts, numbers, quotes, and attribution. Do not invent evidence.
+- When a template/brand is provided, keep its colors and type identity.
+- **Never mirror the reference layout.** A template's 2×2 cards / three columns are not a design.
 - One visual focus per page; clipped text is a failure.
 - Dark pages are not the default.
+- Mark any invented example metrics or UI data as `示意` / `UI Preview`.
 - Sanitize company names and internal data before putting a demo in a public repo.
 
 ## Theme tokens
@@ -75,7 +71,7 @@ Define once in `:root`, whatever the source:
 --gold:#B8924C;    /* accent */
 ```
 
-Use a serif (Georgia) for large numerals and an editorial sans for Chinese copy. See `references/design-system.md` for extraction methods, spacing, type scale, and layout recipes.
+Use a serif (Georgia) for large numerals and an editorial sans for Chinese copy. See `references/design-system.md` for palette choices, spacing, type scale, and layout recipes.
 
 ## Viewer contract — do not regress
 
@@ -111,11 +107,11 @@ Five or six different recipes per deck is normal. Repeat only for an intentional
 
 | Mistake | Fix |
 | --- | --- |
-| Treating every request as "extract PPT pages" | Identify the input mode first; outline and template jobs are first-class |
-| Blocking because there is no PPTX | If there is an outline, build from the outline |
-| Chasing extraction fidelity and forgetting the presentation | Spend the effort on hierarchy, pacing, and layout |
-| Rebuilding the PPT's own grid | Choose a new composition per page first |
-| Theme colors eyeballed | Extract `srgbClr` values when a source/template exists |
+| Waiting for a PPT file when an outline already exists | Build from the outline |
+| Treating a template as a layout to copy | Borrow the theme, redesign each page |
+| Chasing content fidelity and forgetting the presentation | Spend the effort on hierarchy, pacing, and layout |
+| Rebuilding the reference deck's grid | Choose a new composition per page first |
+| Theme colors eyeballed | Use the provided brand tokens or a defined default palette |
 | Text clipped at 720 px | Budget header/body/footer heights before writing |
 | Rail overlays slide | Reserve 160 px left padding and subtract it in the fit math |
 | Wheel over the rail flips pages | Ignore wheel events inside `.rail`, `.preview`, `.deck-ui` |
@@ -128,13 +124,11 @@ Five or six different recipes per deck is normal. Repeat only for an intentional
 ```
 html-ppt-yufei/
 ├── SKILL.md
-├── assets/deck-template.html      # working 6-page deck; copy and rewrite slide bodies
-├── references/design-system.md    # theme extraction, type, spacing, layout recipes
+├── README.md
+├── assets/deck-template.html       # working 6-page deck; copy and rewrite slide bodies
+├── references/design-system.md     # palette, type, spacing, layout recipes
 ├── references/presentation-craft.md # narrative, pacing, slide roles
-├── references/viewer-spec.md      # interaction + print + performance spec
-├── scripts/extract_pptx.py        # optional: PPTX → title/content Markdown
-├── examples/demo-content.md       # one input mode: extracted PPT content
-└── docs/requirements.md           # original design brief
+└── references/viewer-spec.md       # interaction + print + performance spec
 ```
 
 Read the references before building. Start from the template; do not rebuild the viewer from scratch.
