@@ -18,17 +18,17 @@
 
 ```bash
 # Claude Code
-git clone https://github.com/Yufei616/html-ppt.git ~/.claude/skills/html-ppt
+git clone https://github.com/Yufei616/html-ppt-yufei.git ~/.claude/skills/html-ppt-yufei
 
 # opencode
-git clone https://github.com/Yufei616/html-ppt.git ~/.config/opencode/skills/html-ppt
+git clone https://github.com/Yufei616/html-ppt-yufei.git ~/.config/opencode/skills/html-ppt-yufei
 ```
 
-> 如果你已经装过同名的 `html-ppt` skill，请先备份或移除旧版，否则会冲突。
+> 如果你已经装过同名的 `html-ppt-yufei` skill，请先备份或移除旧版，否则会冲突。
 
 然后在对话里说：
 
-> 用 html-ppt 把这份 PPT 的第 12–17 页做成 HTML 演示文稿，保留主题色，重新设计版式。
+> 用 html-ppt-yufei 把这份 PPT 的第 12–17 页做成 HTML 演示文稿，保留主题色，重新设计版式。
 
 Skill 会先提取「标题 + 内容」Markdown，再按页面意图选择版式，最后基于 `assets/deck-template.html` 生成单文件 HTML。
 
@@ -81,7 +81,7 @@ python scripts/extract_pptx.py your-deck.pptx --pages 12-17 --out content.md
 ## 目录
 
 ```
-html-ppt/
+html-ppt-yufei/
 ├── SKILL.md                    # 技能主文件
 ├── assets/deck-template.html   # 可运行的 6 页模板
 ├── references/

@@ -1,5 +1,5 @@
 ---
-name: html-ppt
+name: html-ppt-yufei
 description: Use when turning an existing PPT/PPTX or outline into a redesigned 16:9 HTML slide deck — preserving the source theme colors and content while rebuilding layouts, with a left thumbnail rail, hover preview, click/wheel navigation, overview mode, presenter fullscreen, and print-to-PDF. Triggers include "HTML PPT", "网页版 PPT", "HTML 幻灯片", "重新设计版式", "缩略图侧栏", "演讲者模式", "HTML deck", "slides to HTML".
 ---
 
@@ -88,7 +88,7 @@ Five or six different recipes per deck is normal. Repeat only when consecutive p
 ## Files
 
 ```
-html-ppt/
+html-ppt-yufei/
 ├── SKILL.md
 ├── assets/deck-template.html   # working 6-page deck; copy and rewrite slide bodies
 ├── references/design-system.md # colors, type, spacing, layout recipes
