@@ -1,8 +1,16 @@
 # Design System & Layout Recipes
 
-## 1. Extract the theme, don't guess
+## 1. Theme source of truth
 
-Read colors from the PPTX package, not from a screenshot.
+Choose one, in this order:
+
+1. **Brand / PPT template provided** — extract and reuse its tokens. Do not substitute your own palette.
+2. **Source deck has a strong identity** — extract from the theme and frequently used slide colors.
+3. **Outline / notes / topic only** — propose a restrained palette (below) and pick one; don't interrogate the user.
+
+### Extract from a PPTX
+
+Read colors from the package, not from a screenshot.
 
 ```python
 import re, zipfile, collections
@@ -19,6 +27,16 @@ print(re.findall(r'<p:bg>.*?</p:bg>', slide, re.S)[:1])
 - The **most frequent dark value** is usually body text; the **most frequent light value** is background.
 - One saturated color appearing on rules, numerals, and labels is the accent — keep it.
 - Record dark-page colors separately (background, 4–5 node accents).
+
+### No theme? Pick a default
+
+| Mood | Background | Ink | Accent | Secondary |
+| --- | --- | --- | --- | --- |
+| Editorial / warm | `#FAFAF7` | `#1A1A1A` | `#B8924C` | `#6B6B6B` |
+| Corporate / cool | `#F7F8FA` | `#1F2937` | `#2563EB` | `#6B7280` |
+| Technical / dark | `#0E1A2B` | `#F5F1E8` | `#36DD9F` | `#93A3B5` |
+
+Use one accent plus neutrals. Do not mix warm and cool accents.
 
 ## 2. Tokens
 
@@ -37,7 +55,7 @@ print(re.findall(r'<p:bg>.*?</p:bg>', slide, re.S)[:1])
 }
 ```
 
-Never introduce a second accent hue. If the source has no accent, derive one warm neutral from the theme's accent1.
+Never introduce a second accent hue. If no brand or source accent exists, derive one from the default palette above.
 
 ## 3. Type scale (1280×720)
 
